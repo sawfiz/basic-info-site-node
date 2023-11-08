@@ -6,6 +6,13 @@ const fs = require('fs');
 const hostname = '127.0.0.1';
 const port = 3000;
 
+// The 404 page
+const page404Path = path.join(__dirname, 'public', '404.html');
+const page404 = fs.readFileSync(page404Path, (err, data) => {
+  if (err) throw err;
+  return data;
+});
+
 const server = http.createServer((req, res) => {
   // res.statusCode = 200;
   // res.setHeader('Content-Type', 'text/plain');
@@ -28,7 +35,7 @@ const server = http.createServer((req, res) => {
     if (err) {
       res.statusCode = 404;
       res.setHeader('Content-Type', 'text/html');
-      res.end('404');
+      res.end(page404);
     } else {
       res.statusCode = 200;
       res.setHeader('Content-Type', 'text/html');
